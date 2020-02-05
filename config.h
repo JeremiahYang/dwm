@@ -13,8 +13,8 @@ static const int smartgaps          = 1;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = { "SauceCodePro Nerd Font Mono:size=16" };
-static const char dmenufont[]       = "SauceCodePro Nerd Font Mono:size=16";
+static const char *fonts[]          = { "SauceCodePro NF:size=16" };
+static const char dmenufont[]       = "SauceCodePro NF:size=16";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -75,74 +75,48 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *browsercmd[]  = { "google-chrome-stable", NULL };
-static const char *trayercmd[]  = { "/home/david/scripts/tr-toggle.sh", NULL };
-
-static const char *upvol[]   = { "/home/david/scripts/vol-up.sh",  NULL };
-static const char *downvol[] = { "/home/david/scripts/vol-down.sh",  NULL };
-static const char *mutevol[] = { "/home/david/scripts/vol-toggle.sh",  NULL };
-
-static const char *wpcmd[]  = { "/home/david/scripts/wp-change.sh", NULL };
-static const char *sktogglecmd[]  = { "/home/david/scripts/sck-tog.sh", NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "80x24", NULL };
-
-static const char *setcolemakcmd[]  = { "/home/david/scripts/setxmodmap-colemak.sh", NULL };
-static const char *setqwertycmd[]  = { "/home/david/scripts/setxmodmap-qwerty.sh", NULL };
-
-static const char *suspendcmd[]  = { "/home/david/scripts/suspend.sh", NULL };
+static const char *browsercmd[]  = { "chromium", NULL };
+static const char *wpcmd[]  = { "/home/yyh/scripts/wp-change.sh", NULL };
 
 static Key keys[] = {
 	/* modifier            key                      function        argument */
-	{ MODKEY,              XK_s,                    spawn,          {.v = dmenucmd } },
+	{ MODKEY,              XK_w,                    spawn,          {.v = dmenucmd } },
 	{ MODKEY,              XK_Return,               spawn,          {.v = termcmd } },
 	{ MODKEY,              XK_c,                    spawn,          {.v = browsercmd } },
-	{ MODKEY|ShiftMask,    XK_t,                    spawn,          {.v = trayercmd } },
-	{ MODKEY|ShiftMask,    XK_w,                    spawn,          {.v = setqwertycmd } },
-	{ MODKEY|ShiftMask,    XK_m,                    spawn,          {.v = setcolemakcmd } },
-	{ MODKEY|ShiftMask,    XK_p,                    spawn,          {.v = suspendcmd } },
-	{ MODKEY|ControlMask,  XK_s,                    spawn,          {.v = sktogglecmd } },
-	{ 0,                   XF86XK_AudioLowerVolume, spawn,          {.v = downvol } },
-	{ 0,                   XF86XK_AudioMute,        spawn,          {.v = mutevol } },
-	{ 0,                   XF86XK_AudioRaiseVolume, spawn,          {.v = upvol   } },
-	{ MODKEY,              XK_bracketleft,          spawn,          {.v = downvol } },
-	{ MODKEY,              XK_backslash,            spawn,          {.v = mutevol } },
-	{ MODKEY,              XK_bracketright,         spawn,          {.v = upvol   } },
 	{ MODKEY,              XK_b,                    spawn,          {.v = wpcmd } },
-	{ MODKEY|ShiftMask,    XK_e,                    rotatestack,    {.i = +1 } },
-	{ MODKEY|ShiftMask,    XK_u,                    rotatestack,    {.i = -1 } },
-	{ MODKEY,              XK_e,                    focusstack,     {.i = +1 } },
-	{ MODKEY,              XK_u,                    focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,    XK_h,                    incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,    XK_u,                    rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask,    XK_o,                    rotatestack,    {.i = -1 } },
+	{ MODKEY,              XK_u,                    focusstack,     {.i = +1 } },
+	{ MODKEY,              XK_o,                    focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,    XK_j,                    incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,    XK_l,                    incnmaster,     {.i = -1 } },
-	{ MODKEY,              XK_h,                    setmfact,       {.f = -0.05} },
+	{ MODKEY,              XK_j,                    setmfact,       {.f = -0.05} },
 	{ MODKEY,              XK_l,                    setmfact,       {.f = +0.05} },
-	{ MODKEY,              XK_k,                    hidewin,        {0} },
-	{ MODKEY|ShiftMask,    XK_k,                    restorewin,     {0} },
+	{ MODKEY,              XK_i,                    hidewin,        {0} },
+	{ MODKEY|ShiftMask,    XK_i,                    restorewin,     {0} },
 	{ MODKEY|ShiftMask,    XK_Return,               zoom,           {0} },
-	{ MODKEY,              XK_Tab,                  view,           {0} },
+	{ ControlMask,         XK_Tab,                  view,           {0} },
 	{ MODKEY|ShiftMask,    XK_q,                    killclient,     {0} },
 	{ MODKEY,              XK_t,                    setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,              XK_m,                    setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ShiftMask,    XK_f,                    fullscreen,     {0} },
 	{ MODKEY,              XK_space,                setlayout,      {0} },
 	{ MODKEY|ShiftMask,    XK_space,                togglefloating, {0} },
-	{ MODKEY,              XK_apostrophe,           togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,              XK_0,                    view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,    XK_0,                    tag,            {.ui = ~0 } },
 	{ MODKEY,              XK_comma,                focusmon,       {.i = -1 } },
 	{ MODKEY,              XK_period,               focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,    XK_comma,                tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,    XK_period,               tagmon,         {.i = +1 } },
-	TAGKEYS(               XK_1,                      0)
-	TAGKEYS(               XK_2,                      1)
-	TAGKEYS(               XK_3,                      2)
-	TAGKEYS(               XK_4,                      3)
-	TAGKEYS(               XK_5,                      4)
-	TAGKEYS(               XK_6,                      5)
-	TAGKEYS(               XK_7,                      6)
-	TAGKEYS(               XK_8,                      7)
-	TAGKEYS(               XK_9,                      8)
+	TAGKEYS(               XK_Tab,                      0)
+	TAGKEYS(               XK_a,                      1)
+	TAGKEYS(               XK_s,                      2)
+	TAGKEYS(               XK_d,                      3)
+	TAGKEYS(               XK_g,                      4)
+	TAGKEYS(               XK_h,                      5)
+	TAGKEYS(               XK_j,                      6)
+	TAGKEYS(               XK_k,                      7)
+	TAGKEYS(               XK_l,                      8)
 	{ MODKEY|ControlMask,  XK_q,      quit,           {0} },
 };
 
